@@ -3,7 +3,6 @@ package org.broadinstitute.mbta;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import java.util.Arrays;
@@ -50,7 +49,8 @@ public class Route {
         this.type = type;
     }
 
-    public Route() { }
+    public Route() {
+    }
 
     public String getId() {
         return id;

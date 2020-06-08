@@ -76,13 +76,13 @@ class RouteTest {
      * Reading from the file, routes.json, use as a test of parsing individual
      * tokens of routes and transform them into Route objects. The Jackson stream parsing
      * library parses json tokens into Route objects, using the custom RouteDeserializer
-     * @throws IOException
+     * @throws IOException - error is thrown if Jackson stream token parsing fails
      */
     @Test
     public void test_DeserializeRoutesFromFile() throws IOException {
         if (file == null) return;
 
-        List<Route> routeList = new ArrayList<Route>();
+        List<Route> routeList = new ArrayList<>();
 
         JsonFactory factory = mapper.getFactory();
         JsonParser parser = factory.createJsonParser(file);
@@ -92,7 +92,6 @@ class RouteTest {
         while (!JsonToken.START_ARRAY.equals(token) && token != null ) {
             token = parser.nextToken();
         }
-
         // No content found
         if (token == null) {
             return;
@@ -111,9 +110,7 @@ class RouteTest {
                 if (!JsonToken.START_OBJECT.equals(token)) {
                     break;
                 }
-                if (token == null) {
-                    break;
-                }
+
                 // Read token to parse one complete route, add route to list of routes.
                 Route r = mapper.readValue(parser, Route.class);
                 routeList.add(r);
@@ -126,6 +123,8 @@ class RouteTest {
         } // end while true
 
         assertEquals(2, routeList.size());
+        assertEquals("Red Line", routeList.get(0).getLongName());
+        assertEquals("Mattapan Trolley", routeList.get(1).getLongName());
     }
 
     @org.junit.jupiter.api.AfterEach
