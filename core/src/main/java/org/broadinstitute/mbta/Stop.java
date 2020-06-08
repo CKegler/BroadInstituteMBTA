@@ -1,26 +1,36 @@
 package org.broadinstitute.mbta;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonDeserialize(using = StopDeserializer.class)
 public class Stop {
 
-    private final String id;
-    private final String municipality; // "Cambridge"
-    private final String name; //"Alewife"
-    private final String address;
-        //	"Alewife Brook Pkwy and Cambridge Park Dr, Cambridge, MA 02140"
+    private String id;
+    private String municipality; // "Cambridge"
+    private String name; //"Alewife"
+    private String address;
+    //	"Alewife Brook Pkwy and Cambridge Park Dr, Cambridge, MA 02140"
+    private double latitude; //	42.395428
+    private double longitude; // -71.142483
+    private String location_type; // 1
+    private String route; // e.g. Red, Blue
 
-    private final double latitude; //	42.395428
-    private final double longitude; // -71.142483
-    private final String location_type; // 1
-    private final String route; // e.g. Red, Blue
+    public Stop() {
+    }
 
-    public Stop(String id,
-                String municipality,
-                String name,
-                String address,
-                double latitude,
-                double longitude,
-                String location_type,
-                String route) {
+    @JsonCreator
+    public Stop(@JsonProperty("id") String id,
+                @JsonProperty("municipality") String municipality,
+                @JsonProperty("name") String name,
+                @JsonProperty("address") String address,
+                @JsonProperty("latitude") double latitude,
+                @JsonProperty("longitude") double longitude,
+                @JsonProperty("location_type") String location_type,
+                @JsonProperty("route") String route) {
         this.id = id;
         this.municipality = municipality;
         this.name = name;
@@ -61,5 +71,20 @@ public class Stop {
 
     public String getRoute() {
         return route;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("Stop{");
+        sb.append("id='").append(id).append('\'');
+        sb.append(", municipality='").append(municipality).append('\'');
+        sb.append(", name='").append(name).append('\'');
+        sb.append(", address='").append(address).append('\'');
+        sb.append(", latitude=").append(latitude);
+        sb.append(", longitude=").append(longitude);
+        sb.append(", location_type='").append(location_type).append('\'');
+        sb.append(", route='").append(route).append('\'');
+        sb.append('}');
+        return sb.toString();
     }
 }
