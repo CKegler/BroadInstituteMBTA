@@ -1,16 +1,26 @@
 package org.broadinstitute.mbta;
 
+import com.fasterxml.jackson.core.JsonFactory;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.JsonToken;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.module.SimpleModule;
 import org.junit.jupiter.api.Test;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class RouteTest {
 
     private static File file;
-    private static ObjectMapper mapper = new ObjectMapper() ;
+    private static final ObjectMapper mapper = new ObjectMapper();
 
     @org.junit.jupiter.api.BeforeEach
     void setUp() {
@@ -48,6 +58,9 @@ class RouteTest {
         }
     }
 
+    /**
+     * A simple test for successful reading of file, routes.json
+     */
     @Test
     public void test_ReadingOfRoutesFile() {
 
@@ -59,35 +72,60 @@ class RouteTest {
         assert true;
     }
 
+    /**
+     * Reading from the file, routes.json, use as a test of parsing individual
+     * tokens of routes and transform them into Route objects. The Jackson stream parsing
+     * library parses json tokens into Route objects, using the custom RouteDeserializer
+     * @throws IOException
+     */
     @Test
-    public void test_DeserializeRoutesFromFile() {
+    public void test_DeserializeRoutesFromFile() throws IOException {
         if (file == null) return;
 
-        StringBuilder buffer = new StringBuilder();
-        try (FileReader reader = new FileReader(file);
-             BufferedReader br = new BufferedReader(reader)) {
+        List<Route> routeList = new ArrayList<Route>();
 
-            String line;
-            while ((line = br.readLine()) != null) {
-                buffer.append(line);
+        JsonFactory factory = mapper.getFactory();
+        JsonParser parser = factory.createJsonParser(file);
+        JsonToken token = parser.nextToken();
+
+        // Try find at least one object or array.
+        while (!JsonToken.START_ARRAY.equals(token) && token != null ) {
+            token = parser.nextToken();
+        }
+
+        // No content found
+        if (token == null) {
+            return;
+        }
+
+        boolean scanMore = false;
+
+        while (true) {
+            // If the first token is the start of obejct ->
+            // the response contains only one object (no array)
+            // do not try to get the first object from array.
+            try {
+                if (!JsonToken.START_OBJECT.equals(token) || scanMore) {
+                    token = parser.nextToken();
+                }
+                if (!JsonToken.START_OBJECT.equals(token)) {
+                    break;
+                }
+                if (token == null) {
+                    break;
+                }
+                // Read token to parse one complete route, add route to list of routes.
+                Route r = mapper.readValue(parser, Route.class);
+                routeList.add(r);
+
+                scanMore = true;
+            } catch (JsonParseException e) {
+                // log exception
+                break;
             }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException ioe) {
-            ioe.printStackTrace();
-        }
+        } // end while true
 
-        final String s = buffer.toString();
-
-        Route value = null;
-        try {
-            value = mapper.readValue(s, Route.class);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        System.out.println(value.toString());
-        assert true;
+        assertEquals(2, routeList.size());
     }
 
     @org.junit.jupiter.api.AfterEach
