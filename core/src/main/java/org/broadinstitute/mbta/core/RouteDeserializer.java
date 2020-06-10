@@ -1,5 +1,13 @@
-package org.broadinstitute.mbta;
-
+package org.broadinstitute.mbta.core;
+/**
+ * @author Colin Kegler
+ * @verion
+ * @see https://api-v3.mbta.com/docs/swagger/index.html#/Route
+ * @link Route.java
+ *
+ *  RouteDeserializer is a custom deserializer transform JSON representations in a Route object, which
+ *  models an MBTA route
+ */
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonNode;

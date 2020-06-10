@@ -1,5 +1,13 @@
-package org.broadinstitute.mbta;
-
+package org.broadinstitute.mbta.core;
+/**
+ * @author Colin Kegler
+ * @verion
+ * @see https://api-v3.mbta.com/docs/swagger/index.html#/Stop
+ * @link Stop.java
+ *
+ *  StopDeserializer is a custom deserializer transform JSON representations in a Stop object, which
+ *  models an MBTA stop
+ */
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonNode;

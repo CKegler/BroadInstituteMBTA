@@ -5,6 +5,7 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.broadinstitute.mbta.core.Route;
 import org.junit.jupiter.api.Test;
 
 import java.io.BufferedReader;

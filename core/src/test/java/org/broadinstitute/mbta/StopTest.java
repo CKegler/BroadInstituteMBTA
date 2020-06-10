@@ -1,10 +1,16 @@
 package org.broadinstitute.mbta;
-
+/**
+ * @author Colin Kegler
+ * @verion
+ *
+ *
+ */
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.broadinstitute.mbta.core.Stop;
 import org.junit.jupiter.api.Test;
 
 import java.io.BufferedReader;

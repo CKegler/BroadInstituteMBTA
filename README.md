@@ -20,7 +20,7 @@ This code project was authored in IntelliJ v 2020.1.1 Ultimate edition, and this
 [Postman](https://www.postman.com/) is a collaboration platform for API development. Quickly and easily send REST, SOAP, and GraphQL requests directly within Postman.
 
 - For Routes. **GET** `https://api-v3.mbta.com/routes?filter[type]=0,1`
-- For Stops. **GET** `https://api-v3.mbta.com/stops?filter[route]=Red&include=route`
+- For Stops. **GET** `https://api-v3.mbta.com/stops?filter[route_type]=0,1&include=route,parent_station`
 
 
 **Exercise**
