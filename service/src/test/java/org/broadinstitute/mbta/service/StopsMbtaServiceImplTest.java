@@ -10,14 +10,18 @@ import org.springframework.web.reactive.function.client.WebClient;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.Arrays;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class StopsMbtaServiceImplTest {
     private WebClient webClient;
     private RestTemplate restTemplate;
+
+    private Map<String, Long> stopsByLine;
 
     @org.junit.jupiter.api.BeforeEach
     void setUp() {
@@ -60,16 +64,20 @@ class StopsMbtaServiceImplTest {
     }
 
     @Test
-    void test4() throws URISyntaxException {
-        final String baseUrl = "https://api-v3.mbta.com/stops?filter[route_type]=0,1&include=route,parent_station";
+    public void findMaxStops(){
+        StopsMbtaServiceImpl stopsService = new StopsMbtaServiceImpl();
+        final List<Stop> stopList = stopsService.getStops();
 
-        HttpHeaders headers = new HttpHeaders();
-        headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
-        HttpEntity<String> entity = new HttpEntity<String>(headers);
-        final String response =
-                restTemplate.exchange(baseUrl, HttpMethod.GET, entity, String.class).getBody();
+        stopsByLine = stopList
+                .stream()
+                .collect(Collectors
+                        .groupingBy(e -> e.getName(), Collectors.counting()))
+                .entrySet()
+                .stream()
+                .sorted(Map.Entry.comparingByValue())
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue,
+                        (oldValue, newValue) -> oldValue, LinkedHashMap::new));
 
-        //List<Stop> rates = rateResponse.getBody();
-        //assertTrue(rates.size() > 0);
+
     }
 }

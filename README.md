@@ -73,6 +73,15 @@ Extend your program so it displays the following additional information.
 3. A list of the stops that connect two or more subway routes along with the relevant route
 names for each of those stops.
 ```
+**Answer** :  With a list of subway stops (i.e. fileter[route_type]=0,1) and the routes associated with each stop,
+do a frequency count using Java Streams. Specifically, take the filtered list, apply a stream to
+it, create a map where (key = route name, value = frequency count) and then sort the 
+map by value and sorting in reverse from highestto lowest.  Upon inspecting the map,
+the first map entry will display the stops with the most lines; the last map entry
+will display the stop with the least lines.
+
+To find the stops with 2 or more connections, take the resulting map and filter it so that the map
+only contains stops with a route count >= 2.
 
 ***Question 3***
 
@@ -89,3 +98,4 @@ Examples:
 ```
 
 **Test Coverage**
+
