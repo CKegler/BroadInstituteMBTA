@@ -39,8 +39,8 @@ public class StopDeserializer extends StdDeserializer<Stop> {
                 dataNode.get("attributes").get("address").asText(),
                 dataNode.get("attributes").get("latitude").asDouble(),
                 dataNode.get("attributes").get("longitude").asDouble(),
-                dataNode.get("attributes").get("location_type").asText(),
-                dataNode.get("relationships").get("route").get("data").get("id").asText()
+                dataNode.get("attributes").get("location_type").asText()
+             //   dataNode.get("relationships").get("route").get("data").get("id").asText()
         );
     }
 

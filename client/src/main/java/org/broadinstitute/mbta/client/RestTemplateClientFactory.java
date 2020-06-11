@@ -9,6 +9,7 @@ import org.springframework.web.client.RestTemplate;
  */
 public class RestTemplateClientFactory extends MbtaFactory {
 
+    @Override
     public RestTemplate create() {
         int timeout = 5000;
 

@@ -4,13 +4,13 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
 /**
  * @author Colin Kegler
- * @verion
- * https://api-v3.mbta.com/docs/swagger/index.html#/Route
+ * @verion https://api-v3.mbta.com/docs/swagger/index.html#/Route
  * @link Route.java
- *
- *  A Stop object models an MBTA stop
+ * <p>
+ * A Stop object models an MBTA stop
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonDeserialize(using = StopDeserializer.class)
@@ -24,7 +24,7 @@ public class Stop {
     private double latitude; //	42.395428
     private double longitude; // -71.142483
     private String location_type; // 1
-    private String route; // e.g. Red, Blue
+    //   private String route; // e.g. Red, Blue
 
     public Stop() {
     }
@@ -36,8 +36,9 @@ public class Stop {
                 @JsonProperty("address") String address,
                 @JsonProperty("latitude") double latitude,
                 @JsonProperty("longitude") double longitude,
-                @JsonProperty("location_type") String location_type,
-                @JsonProperty("route") String route) {
+                @JsonProperty("location_type") String location_type
+                //@JsonProperty("route") String route)
+    ) {
         this.id = id;
         this.municipality = municipality;
         this.name = name;
@@ -45,7 +46,7 @@ public class Stop {
         this.latitude = latitude;
         this.longitude = longitude;
         this.location_type = location_type;
-        this.route = route;
+        //     this.route = route;
     }
 
     public String getId() {
@@ -76,9 +77,9 @@ public class Stop {
         return location_type;
     }
 
-    public String getRoute() {
-        return route;
-    }
+//    public String getRoute() {
+//        return route;
+//    }
 
     @Override
     public String toString() {
@@ -90,7 +91,7 @@ public class Stop {
         sb.append(", latitude=").append(latitude);
         sb.append(", longitude=").append(longitude);
         sb.append(", location_type='").append(location_type).append('\'');
-        sb.append(", route='").append(route).append('\'');
+        //   sb.append(", route='").append(route).append('\'');
         sb.append('}');
         return sb.toString();
     }
