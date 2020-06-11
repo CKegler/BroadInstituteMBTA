@@ -1,13 +1,12 @@
 package org.broadinstitute.mbta.client;
+
+import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.web.client.RestTemplate;
 /**
  * @author Colin Kegler
  * @version RestTemplate, the SpringBoot REST client, will be deprecated in future versions
  * of SpringBoot.  This RestTemplateClientFactory is used as a stub here.
  */
-
-import org.springframework.boot.web.client.RestTemplateBuilder;
-import org.springframework.web.client.RestTemplate;
-
 public class RestTemplateClientFactory extends MbtaFactory {
 
     public RestTemplate create() {

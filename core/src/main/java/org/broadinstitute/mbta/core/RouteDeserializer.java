@@ -16,6 +16,10 @@ import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 
 import java.io.IOException;
 
+/**
+ * @see Route
+ * The custom deserializer to convert json to an MBTA Route object
+ */
 public class RouteDeserializer extends StdDeserializer<Route> {
 
     private static ObjectMapper routeMapper = new ObjectMapper();

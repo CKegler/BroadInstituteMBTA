@@ -1,17 +1,17 @@
 package org.broadinstitute.mbta.core;
-/**
- * @author Colin Kegler
- * @verion
- * @see https://api-v3.mbta.com/docs/swagger/index.html#/Route
- * @link Route.java
- *
- *  A Stop object models an MBTA stop
- */
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-
+/**
+ * @author Colin Kegler
+ * @verion
+ * https://api-v3.mbta.com/docs/swagger/index.html#/Route
+ * @link Route.java
+ *
+ *  A Stop object models an MBTA stop
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonDeserialize(using = StopDeserializer.class)
 public class Stop {
