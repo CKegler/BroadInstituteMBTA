@@ -58,7 +58,11 @@ and choose:
 filter before results are received
 Please document your decision and your reasons for it.
 ``` 
-
+**Answer**: Option 2 - using the server to filter the results is more efficient because the returned information set 
+is reduced in size. Downloading the entire subway route is potentially a large file; once downloaded an additional 
+operation to parse the subway route file and determine the information of interest would be needed. This involves more time 
+to download the file locally, parse the entire MBTA file, and then selectively filter the informationof interest.
+The use of server side filtering saves bandwidth and computation.
 
 ***Question 2***
 
