@@ -6,7 +6,9 @@ package org.broadinstitute.mbta.core;
  * @link Stop.java
  *
  *  StopDeserializer is a custom deserializer transform JSON representations in a Stop object, which
- *  models an MBTA stop
+ *  models an MBTA stop.
+ *  Note - the deserialiation is based on stream parsing with Jackson. The array of data in a StopRoute json file
+ *  *  is broken down into tokens of individual "Stops" and transformed into Stop objects.
  */
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;

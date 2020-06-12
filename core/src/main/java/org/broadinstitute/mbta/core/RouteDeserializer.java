@@ -6,7 +6,9 @@ package org.broadinstitute.mbta.core;
  * @link Route.java
  *
  *  RouteDeserializer is a custom deserializer transform JSON representations in a Route object, which
- *  models an MBTA route
+ *  models an MBTA route.
+ *  Note - the deserialiation is based on stream parsing with Jackson. The array of data in a Route json file
+ *  is broken down into tokens of individual "route" and transformed into objects.
  */
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
